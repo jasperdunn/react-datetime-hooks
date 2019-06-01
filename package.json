@@ -1,10 +1,10 @@
 {
-  "name": "@jasperdunn/react-date-picker",
+  "name": "@jasperdunn/react-datetime-hooks",
   "version": "1.0.0",
-  "description": "agnostic date and time picker components",
+  "description": "Flexible agnostic functions to help you build datetime components in React",
   "author": "jasperdunn",
   "license": "MIT",
-  "repository": "jasperdunn/@jasperdunn/react-date-picker",
+  "repository": "jasperdunn/@jasperdunn/react-datetime-hooks",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",

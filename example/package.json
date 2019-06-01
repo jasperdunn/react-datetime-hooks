@@ -1,11 +1,11 @@
 {
-  "name": "@jasperdunn/react-date-picker-example",
-  "homepage": "https://jasperdunn.github.io/@jasperdunn/react-date-picker",
+  "name": "@jasperdunn/react-datetime-hooks--example",
+  "homepage": "https://jasperdunn.github.io/@jasperdunn/react-datetime-hooks",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@jasperdunn/react-date-picker": "link:..",
+    "@jasperdunn/react-datetime-hooks": "link:..",
     "node-sass": "^4.12.0",
     "prop-types": "^15.6.2",
     "react": "link:../node_modules/react",
