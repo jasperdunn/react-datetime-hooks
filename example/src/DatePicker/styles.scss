@@ -1,0 +1,65 @@
+.date-picker {
+  &__day-of-the-week {
+    text-align: center;
+    width: 100%;
+    height: 25px;
+    display: inline-block;
+  }
+
+  &__date {
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+
+    &--previous-month,
+    &--next-month {
+      color: lightgrey;
+    }
+
+    border: 2px solid transparent;
+
+    &:hover {
+      border: 2px solid lightblue;
+    }
+
+    &--selected,
+    &--selected:hover {
+      border: 2px solid blue;
+    }
+  }
+
+  &__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-flow: dense;
+  }
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr 1fr;
+  grid-column-gap: 4px;
+  margin-bottom: 16px;
+}
+
+.button {
+  display: inline-block;
+  width: 100%;
+  height: 25px;
+  text-align: center;
+  font-weight: 1000;
+  border: 2px solid transparent;
+  background-color: lightgrey;
+  cursor: pointer;
+
+  &:hover {
+    border-color: lightgrey;
+    background-color: unset;
+  }
+}
