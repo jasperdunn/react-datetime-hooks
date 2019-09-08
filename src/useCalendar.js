@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { DAYS_IN_A_WEEK, DAY, GROUP } from './constants'
+import { DAYS_IN_A_WEEK, DAY, DATE_GROUP } from './constants'
 import { dateFormatter } from './formatter'
 
 /**
@@ -122,7 +122,7 @@ export default function useCalendar({
           previousMonth.getMonth(),
           dayOfMonth
         ),
-        group: GROUP.PREVIOUS_MONTH
+        group: DATE_GROUP.PREVIOUS_MONTH
       }
     }
 
@@ -146,7 +146,7 @@ export default function useCalendar({
           selectedDate.getMonth(),
           dayOfMonth
         ),
-        group: GROUP.CURRENT_MONTH
+        group: DATE_GROUP.CURRENT_MONTH
       }
     }
 
@@ -185,7 +185,7 @@ export default function useCalendar({
             selectedDate.getMonth(),
             dayOfMonth
           ),
-          group: GROUP.CURRENT_MONTH
+          group: DATE_GROUP.CURRENT_MONTH
         })
       }
 
@@ -208,7 +208,7 @@ export default function useCalendar({
           selectedDate.getMonth(),
           dayOfMonth
         ),
-        group: GROUP.CURRENT_MONTH
+        group: DATE_GROUP.CURRENT_MONTH
       }
     }
 
@@ -239,7 +239,7 @@ export default function useCalendar({
           selectedDate.getMonth() + 1,
           dayOfMonth
         ),
-        group: GROUP.NEXT_MONTH
+        group: DATE_GROUP.NEXT_MONTH
       }
     }
 
