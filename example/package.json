@@ -5,12 +5,15 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "react-scripts": "3.1.1",
+    "@jasperdunn/react-datetime-hooks": "link:..",
+    "awesome-typescript-loader": "^5.2.1",
     "node-sass": "^4.12.0",
     "prop-types": "^15.6.2",
-    "@jasperdunn/react-datetime-hooks": "link:..",
     "react": "link:../node_modules/react",
-    "react-dom": "link:../node_modules/react-dom"
+    "react-dom": "link:../node_modules/react-dom",
+    "react-scripts": "3.1.1",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
