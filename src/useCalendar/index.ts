@@ -1,51 +1,64 @@
-import { useState, useMemo } from 'react'
-import { DAYS_IN_A_WEEK, DAY, DATE_GROUP } from './constants'
-import { dateFormatter } from './formatter'
+import { useMemo, useState } from 'react'
+import { DATE_GROUP, DAY, DAYS_IN_A_WEEK } from '../constants'
+import { dateFormatter } from '../formatter'
+
+export interface Cell {
+  date: Date,
+  group: string
+}
+
+export interface CalendarOptions {
+  initialDate?: Date,
+  weekStartsOn?: string
+}
+
+export interface CalendarExports {
+  daysOfTheWeek: string[],
+  firstDayOfTheWeek: string,
+  setFirstDayOfTheWeek: (day: string) => void,
+  getRows: () => Cell[][],
+  selectedDate: Date,
+  setSelectedDate: (date: Date) => void,
+  setYear: (value: number) => void,
+  setMonth: (value: number) => void
+}
 
 /**
- * @typedef Options
- * @property {Date} initialDate - optional, default is set to todays date
- * @property {String} weekStartsOn - optional, default is set to Sunday
- *
- * @param {Options} options
+ * @description
+ * - initialDate - default is todays date
+ * - weekStartsOn - default is Sunday
  */
-export default function useCalendar({
+export function useCalendar({
   initialDate = new Date(),
   weekStartsOn = DAY.SUNDAY
-}) {
+}: CalendarOptions): CalendarExports {
   const [selectedDate, setSelectedDate] = useState(() =>
     setTimeToTheStartOfTheDay(initialDate)
   )
   const [firstDayOfTheWeek, setFirstDayOfTheWeek] = useState(weekStartsOn)
+  const daysOfTheWeek = useMemo(getDaysOfTheWeek, [firstDayOfTheWeek])
 
-  /**
-   * @param {Boolean} forPreviousMonth
-   */
-  function getLastDayOfTheWeek(forPreviousMonth) {
-    if (forPreviousMonth || firstDayOfTheWeek === DAY.MONDAY) {
-      return 6
+  function getLastDayOfTheWeek(forThePreviousMonth: boolean) {
+    if (forThePreviousMonth || firstDayOfTheWeek === DAY.MONDAY) {
+      return 6 //tslint:disable-line
     }
     return 0
   }
 
-  /**
-   * @param {Boolean} forNextMonth
-   */
-  function getFirstDayOfTheWeek(forNextMonth) {
-    if (forNextMonth || firstDayOfTheWeek === DAY.MONDAY) {
+  function getFirstDayOfTheWeek(forTheNextMonth: boolean) {
+    if (forTheNextMonth || firstDayOfTheWeek === DAY.MONDAY) {
       return 0
     }
     return 1
   }
 
   /**
-   * @param {Date} date
    * @returns
    * An integer, between 0 and 6, corresponding to the **first** day of the
    * month for the given date, according to local time: 0 for Sunday, 1 for
    * Monday, 2 for Tuesday, and so on.
    */
-  function getFirstWeekdayOfMonth(date) {
+  function getFirstWeekdayOfMonth(date: Date) {
     let firstDayOfWeekOfMonth = new Date(
       date.getFullYear(),
       date.getMonth(),
@@ -57,20 +70,19 @@ export default function useCalendar({
     }
 
     if (firstDayOfWeekOfMonth === -1) {
-      firstDayOfWeekOfMonth = 6
+      firstDayOfWeekOfMonth = 6 //tslint:disable-line
     }
 
     return firstDayOfWeekOfMonth
   }
 
   /**
-   * @param {Date} date
    * @returns
    * An integer, between 0 and 6, corresponding to the **last** day of the week
    * for the month for the given date, according to local time: 0 for Sunday, 1
    * for Monday, 2 for Tuesday, and so on.
    */
-  function getLastWeekdayOfMonth(date) {
+  function getLastWeekdayOfMonth(date: Date) {
     let lastDayOfWeekOfMonth = new Date(
       date.getFullYear(),
       date.getMonth() + 1,
@@ -82,24 +94,23 @@ export default function useCalendar({
     }
 
     if (lastDayOfWeekOfMonth === -1) {
-      lastDayOfWeekOfMonth = 6
+      lastDayOfWeekOfMonth = 6 //tslint:disable-line
     }
 
     return lastDayOfWeekOfMonth
   }
 
   /**
-   * @param {Date} date
    * @returns
    * An integer, between 28 and 31, representing the **last**
    * day of the month for the given date according to local time.
    */
-  function getLastDayOfMonth(date) {
+  function getLastDayOfMonth(date: Date) {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
   }
 
-  function getOuterFirstRow() {
-    const outerFirstRow = []
+  function getOuterFirstRow(): Cell[] {
+    const outerFirstRow: Cell[] = []
 
     const previousMonth = new Date(
       selectedDate.getFullYear(),
@@ -115,7 +126,7 @@ export default function useCalendar({
 
     let dayOfMonth = getLastDayOfMonth(previousMonth)
 
-    for (let a = lastWeekday; a >= 0; a--, dayOfMonth--) {
+    for (let a = lastWeekday; a >= 0; a-- , dayOfMonth--) {
       outerFirstRow[a] = {
         date: new Date(
           previousMonth.getFullYear(),
@@ -138,7 +149,7 @@ export default function useCalendar({
     for (
       let a = 0;
       firstWeekday < DAYS_IN_A_WEEK;
-      a++, firstWeekday++, dayOfMonth++
+      a++ , firstWeekday++ , dayOfMonth++ // tslint:disable-line
     ) {
       innerFirstRow[a] = {
         date: new Date(
@@ -171,14 +182,14 @@ export default function useCalendar({
     const lastWeekday = getLastWeekdayOfMonth(selectedDate)
 
     const numberOfRows =
-      (lastDay - (DAYS_IN_A_WEEK - firstWeekday) - (lastWeekday + 1)) / 7
+      (lastDay - (DAYS_IN_A_WEEK - firstWeekday) - (lastWeekday + 1)) / DAYS_IN_A_WEEK
 
     let dayOfMonth = DAYS_IN_A_WEEK - firstWeekday + 1
 
     for (let a = 0; a < numberOfRows; a++) {
       const row = []
 
-      for (let b = 0; b < DAYS_IN_A_WEEK; b++, dayOfMonth++) {
+      for (let b = 0; b < DAYS_IN_A_WEEK; b++ , dayOfMonth++) {
         row.push({
           date: new Date(
             selectedDate.getFullYear(),
@@ -201,7 +212,7 @@ export default function useCalendar({
     const lastWeekday = getLastWeekdayOfMonth(selectedDate)
     let dayOfMonth = getLastDayOfMonth(selectedDate)
 
-    for (let a = lastWeekday; a >= 0; a--, dayOfMonth--) {
+    for (let a = lastWeekday; a >= 0; a-- , dayOfMonth--) {
       innerFirstRow[a] = {
         date: new Date(
           selectedDate.getFullYear(),
@@ -215,8 +226,8 @@ export default function useCalendar({
     return innerFirstRow
   }
 
-  function getOuterLastRow() {
-    const outerLastRow = []
+  function getOuterLastRow(): Cell[] {
+    const outerLastRow: Cell[] = []
 
     let firstWeekday = getFirstWeekdayOfMonth(
       new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 1)
@@ -231,7 +242,7 @@ export default function useCalendar({
     for (
       let a = 0;
       firstWeekday < DAYS_IN_A_WEEK;
-      a++, firstWeekday++, dayOfMonth++
+      a++ , firstWeekday++ , dayOfMonth++ // tslint:disable-line
     ) {
       outerLastRow[a] = {
         date: new Date(
@@ -267,8 +278,7 @@ export default function useCalendar({
     rows.push(getFirstRow())
 
     const middleRows = getMiddleRows()
-    for (let a = 0; a < middleRows.length; a++) {
-      const row = middleRows[a]
+    for (const row of middleRows) {
       rows.push(row)
     }
 
@@ -276,9 +286,20 @@ export default function useCalendar({
     return rows
   }
 
+  function getWeekday(date: Date) {
+    const weekday = dateFormatter.formatToParts(new Date(date))
+      .find((p) => p.type === 'weekday')
+
+    if (!weekday) {
+      throw new Error()
+    }
+
+    return weekday.value.replace('.', '')
+  }
+
   function getDaysOfTheWeek() {
     const date = new Date()
-    const daysOfTheWeek = []
+    const days = []
 
     let firstDay = date.getDate() - date.getDay()
 
@@ -287,20 +308,17 @@ export default function useCalendar({
     }
 
     date.setDate(firstDay)
-    for (var i = 0; i < 7; i++) {
-      const weekday = dateFormatter
-        .formatToParts(new Date(date))
-        .find(p => p.type === 'weekday')
-        .value.replace('.', '')
+    for (let i = 0; i < DAYS_IN_A_WEEK; i++) {
+      const weekday = getWeekday(date)
 
-      daysOfTheWeek.push(weekday)
+      days.push(weekday)
       date.setDate(date.getDate() + 1)
     }
 
-    return daysOfTheWeek
+    return days
   }
 
-  function setTimeToTheStartOfTheDay(date) {
+  function setTimeToTheStartOfTheDay(date: Date) {
     return new Date(
       date.getFullYear(),
       date.getMonth(),
@@ -312,50 +330,48 @@ export default function useCalendar({
     )
   }
 
-  function setTimeToTheEndOfTheDay(date) {
-    if (date instanceof Date) {
-      return new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-        23,
-        59,
-        59,
-        999
-      )
-    }
+  // function setTimeToTheEndOfTheDay(date: Date) {
+  //   return new Date(
+  //     date.getFullYear(),
+  //     date.getMonth(),
+  //     date.getDate(),
+  //     23,
+  //     59,
+  //     59,
+  //     999
+  //   )
+  // }
 
-    return null
-  }
-
-  function setYear(value) {
+  function setYear(value: number) {
     setSelectedDate(
       new Date(
         selectedDate.getFullYear() + value,
         selectedDate.getMonth(),
-        selectedDate.getDate() > 28 ? 28 : selectedDate.getDate() //TODO set to last day
+        // TODO set to last day
+        selectedDate.getDate() > 28 ? 28 : selectedDate.getDate() // tslint:disable-line
       )
     )
   }
 
-  function setMonth(value) {
+  function setMonth(value: number) {
     setSelectedDate(
       new Date(
         selectedDate.getFullYear(),
         selectedDate.getMonth() + value,
-        selectedDate.getDate() > 28 ? 28 : selectedDate.getDate() //TODO set to last day
+        // TODO set to last day
+        selectedDate.getDate() > 28 ? 28 : selectedDate.getDate() // tslint:disable-line
       )
     )
   }
 
   return {
-    daysOfTheWeek: useMemo(getDaysOfTheWeek, [firstDayOfTheWeek]),
+    daysOfTheWeek,
     firstDayOfTheWeek,
-    setFirstDayOfTheWeek: day => setFirstDayOfTheWeek(day),
     getRows,
     selectedDate,
-    setSelectedDate: date => setSelectedDate(setTimeToTheStartOfTheDay(date)),
-    setYear,
-    setMonth
+    setFirstDayOfTheWeek: (day: string) => setFirstDayOfTheWeek(day),
+    setMonth,
+    setSelectedDate: (date: Date) => setSelectedDate(setTimeToTheStartOfTheDay(date)),
+    setYear
   }
 }

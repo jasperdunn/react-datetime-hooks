@@ -1,30 +1,36 @@
 {
-  "name": "@jasperdunn/react-datetime-hooks--example",
-  "homepage": "https://jasperdunn.github.io/@jasperdunn/react-datetime-hooks",
+  "name": "react-datetime-hooks-example",
+  "homepage": "https://jasperdunn.github.io/react-datetime-hooks",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
-  "devDependencies": {
-    "@jasperdunn/react-datetime-hooks": "link:..",
-    "awesome-typescript-loader": "^5.2.1",
-    "node-sass": "^4.12.0",
-    "prop-types": "^15.6.2",
+  "dependencies": {
     "react": "link:../node_modules/react",
-    "react-dom": "^16.9.0",
+    "react-datetime-hooks": "link:..",
+    "react-dom": "link:../node_modules/react-dom"
+  },
+  "devDependencies": {
+    "@types/react": "link:../node_modules/@types/react",
+    "@types/react-dom": "link:../node_modules/@types/react-dom",
+    "node-sass": "^4.12.0",
     "react-scripts": "3.1.1",
-    "source-map-loader": "^0.2.4",
-    "typescript": "^3.6.2"
+    "typescript": "link:../node_modules/typescript"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
