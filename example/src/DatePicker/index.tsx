@@ -2,7 +2,12 @@ import React, { ChangeEvent } from 'react'
 import { Cell, constants, useCalendar } from 'react-datetime-hooks'
 import './styles.scss'
 
-export default function DatePicker() {
+interface DatePickerProps {
+  initialDate: Date,
+  onChange: (date: Date) => void
+}
+
+export default function DatePicker({ initialDate, onChange }: DatePickerProps) {
   const {
     firstDayOfTheWeek,
     setFirstDayOfTheWeek,
@@ -10,10 +15,10 @@ export default function DatePicker() {
     getRows,
     selectedDate,
     setSelectedDate,
-    setYear,
-    setMonth
+    nudgeYear,
+    nudgeMonth
   } = useCalendar({
-    initialDate: new Date('2019-01-01'),
+    initialDate,
     weekStartsOn: constants.DAY.MONDAY
   })
 
@@ -25,27 +30,31 @@ export default function DatePicker() {
   }
 
   function decreaseYear() {
-    setYear(-1)
+    nudgeYear(-1)
   }
 
   function decreaseMonth() {
-    setYear(-1)
+    nudgeMonth(-1)
   }
 
   function setSelectedDateToToday() {
     setSelectedDate(new Date())
-  }
-
-  function increaseYear() {
-    setYear(1)
+    onChange(new Date())
   }
 
   function increaseMonth() {
-    setMonth(1)
+    nudgeMonth(1)
+  }
+
+  function increaseYear() {
+    nudgeYear(1)
   }
 
   function setSelectedDateToCell(date: Date) {
-    return () => setSelectedDate(date)
+    return () => {
+      setSelectedDate(date)
+      onChange(date)
+    }
   }
 
   function setWeekStartDate(event: ChangeEvent<HTMLInputElement>) {

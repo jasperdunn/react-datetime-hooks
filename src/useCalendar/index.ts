@@ -1,39 +1,14 @@
 import { useMemo, useState } from 'react'
 import { DATE_GROUP, DAY, DAYS_IN_A_WEEK } from '../constants'
 import { dateFormatter } from '../formatter'
+import { CalendarExports, CalendarOptions, Cell } from '../interfaces'
 
-export interface Cell {
-  date: Date,
-  group: string
-}
-
-export interface CalendarOptions {
-  initialDate?: Date,
-  weekStartsOn?: string
-}
-
-export interface CalendarExports {
-  daysOfTheWeek: string[],
-  firstDayOfTheWeek: string,
-  setFirstDayOfTheWeek: (day: string) => void,
-  getRows: () => Cell[][],
-  selectedDate: Date,
-  setSelectedDate: (date: Date) => void,
-  setYear: (value: number) => void,
-  setMonth: (value: number) => void
-}
-
-/**
- * @description
- * - initialDate - default is todays date
- * - weekStartsOn - default is Sunday
- */
 export function useCalendar({
   initialDate = new Date(),
   weekStartsOn = DAY.SUNDAY
 }: CalendarOptions): CalendarExports {
   const [selectedDate, setSelectedDate] = useState(() =>
-    setTimeToTheStartOfTheDay(initialDate)
+    updateTimeToTheStartOfTheDay(initialDate)
   )
   const [firstDayOfTheWeek, setFirstDayOfTheWeek] = useState(weekStartsOn)
   const daysOfTheWeek = useMemo(getDaysOfTheWeek, [firstDayOfTheWeek])
@@ -318,7 +293,7 @@ export function useCalendar({
     return days
   }
 
-  function setTimeToTheStartOfTheDay(date: Date) {
+  function updateTimeToTheStartOfTheDay(date: Date) {
     return new Date(
       date.getFullYear(),
       date.getMonth(),
@@ -330,7 +305,7 @@ export function useCalendar({
     )
   }
 
-  // function setTimeToTheEndOfTheDay(date: Date) {
+  // function updateTimeToTheEndOfTheDay(date: Date) {
   //   return new Date(
   //     date.getFullYear(),
   //     date.getMonth(),
@@ -342,24 +317,24 @@ export function useCalendar({
   //   )
   // }
 
-  function setYear(value: number) {
-    setSelectedDate(
+  function nudgeYear(value: number) {
+    setSelectedDate(state =>
       new Date(
-        selectedDate.getFullYear() + value,
-        selectedDate.getMonth(),
-        // TODO set to last day
-        selectedDate.getDate() > 28 ? 28 : selectedDate.getDate() // tslint:disable-line
+        state.getFullYear() + value,
+        state.getMonth(),
+        // TODO set to last day instead of 28th for all months
+        state.getDate() > 28 ? 28 : state.getDate() // tslint:disable-line
       )
     )
   }
 
-  function setMonth(value: number) {
-    setSelectedDate(
+  function nudgeMonth(value: number) {
+    setSelectedDate(state =>
       new Date(
-        selectedDate.getFullYear(),
-        selectedDate.getMonth() + value,
-        // TODO set to last day
-        selectedDate.getDate() > 28 ? 28 : selectedDate.getDate() // tslint:disable-line
+        state.getFullYear(),
+        state.getMonth() + value,
+        // TODO set to last day instead of 28th for all months
+        state.getDate() > 28 ? 28 : state.getDate() // tslint:disable-line
       )
     )
   }
@@ -368,10 +343,10 @@ export function useCalendar({
     daysOfTheWeek,
     firstDayOfTheWeek,
     getRows,
+    nudgeMonth,
+    nudgeYear,
     selectedDate,
     setFirstDayOfTheWeek: (day: string) => setFirstDayOfTheWeek(day),
-    setMonth,
-    setSelectedDate: (date: Date) => setSelectedDate(setTimeToTheStartOfTheDay(date)),
-    setYear
+    setSelectedDate: (date: Date) => setSelectedDate(updateTimeToTheStartOfTheDay(date))
   }
 }

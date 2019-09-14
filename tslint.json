@@ -7,6 +7,7 @@
         "tslint-react-hooks"
     ],
     "rules": {
+        "arrow-parens": false,
         "semicolon": false,
         "trailing-comma": [
             true,
@@ -33,6 +34,7 @@
         "jsx-no-multiline-js": false,
         "interface-name": false,
         "interface-over-type-literal": true,
-        "ban-comma-operator": false
+        "ban-comma-operator": false,
+        "jsx-no-lambda": false
     }
 }
