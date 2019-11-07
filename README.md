@@ -2,7 +2,9 @@
 
 ## Flexible agnostic functions to help you build datetime components in React
 
-WIP
+## Dev
+1. start up the package project `yarn && yarn start` 
+2. create a second terminal for the example project, then `cd example && yarn && yarn start`
 
 ## License
 
