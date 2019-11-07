@@ -5,18 +5,19 @@ export interface Cell {
 
 export interface CalendarOptions {
     /** default is todays date */
-    initialDate?: Date,
+    selectedDate?: Date,
     /** default is Sunday */
-    weekStartsOn?: string
+    weekStartsOn?: string,
+    setSelectedDate: React.Dispatch<React.SetStateAction<Date>>
 }
 
 export interface CalendarExports {
     daysOfTheWeek: string[],
     firstDayOfTheWeek: string,
-    setFirstDayOfTheWeek: (day: string) => void,
+    setFirstDayOfTheWeek: React.Dispatch<React.SetStateAction<string>>,
     getRows: () => Cell[][],
     selectedDate: Date,
-    setSelectedDate: (date: Date) => void,
+    setSelectedDate: React.Dispatch<React.SetStateAction<Date>>,
     nudgeYear: (value: number) => void,
     nudgeMonth: (value: number) => void
 }

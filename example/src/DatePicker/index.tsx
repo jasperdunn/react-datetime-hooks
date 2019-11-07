@@ -4,7 +4,7 @@ import './styles.scss'
 
 interface DatePickerProps {
   initialDate: Date,
-  onChange: (date: Date) => void
+  onChange: React.Dispatch<React.SetStateAction<Date>>
 }
 
 export default function DatePicker({ initialDate, onChange }: DatePickerProps) {
@@ -18,8 +18,9 @@ export default function DatePicker({ initialDate, onChange }: DatePickerProps) {
     nudgeYear,
     nudgeMonth
   } = useCalendar({
-    initialDate,
-    weekStartsOn: constants.DAY.MONDAY
+    weekStartsOn: constants.DAY.MONDAY,
+    selectedDate: initialDate,
+    setSelectedDate: onChange
   })
 
   function getTitle() {

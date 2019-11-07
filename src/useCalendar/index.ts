@@ -4,12 +4,10 @@ import { dateFormatter } from '../formatter'
 import { CalendarExports, CalendarOptions, Cell } from '../interfaces'
 
 export function useCalendar({
-  initialDate = new Date(),
-  weekStartsOn = DAY.SUNDAY
+  weekStartsOn = DAY.SUNDAY,
+  selectedDate = new Date(),
+  setSelectedDate
 }: CalendarOptions): CalendarExports {
-  const [selectedDate, setSelectedDate] = useState(() =>
-    updateTimeToTheStartOfTheDay(initialDate)
-  )
   const [firstDayOfTheWeek, setFirstDayOfTheWeek] = useState(weekStartsOn)
   const daysOfTheWeek = useMemo(getDaysOfTheWeek, [firstDayOfTheWeek])
 
@@ -318,7 +316,7 @@ export function useCalendar({
   // }
 
   function nudgeYear(value: number) {
-    setSelectedDate(state =>
+    setSelectedDate((state: Date) =>
       new Date(
         state.getFullYear() + value,
         state.getMonth(),
