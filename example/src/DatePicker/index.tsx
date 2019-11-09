@@ -3,11 +3,11 @@ import { Cell, constants, useCalendar } from 'react-datetime-hooks'
 import './styles.scss'
 
 interface DatePickerProps {
-  initialDate: Date,
+  value: Date,
   onChange: React.Dispatch<React.SetStateAction<Date>>
 }
 
-export default function DatePicker({ initialDate, onChange }: DatePickerProps) {
+export const DatePicker: React.FC<DatePickerProps> = ({ value, onChange }) => {
   const {
     firstDayOfTheWeek,
     setFirstDayOfTheWeek,
@@ -16,10 +16,11 @@ export default function DatePicker({ initialDate, onChange }: DatePickerProps) {
     selectedDate,
     setSelectedDate,
     nudgeYear,
-    nudgeMonth
+    nudgeMonth,
+    updateTimeToTheStartOfTheDay
   } = useCalendar({
     weekStartsOn: constants.DAY.MONDAY,
-    selectedDate: initialDate,
+    selectedDate: value,
     setSelectedDate: onChange
   })
 
@@ -39,8 +40,8 @@ export default function DatePicker({ initialDate, onChange }: DatePickerProps) {
   }
 
   function setSelectedDateToToday() {
-    setSelectedDate(new Date())
-    onChange(new Date())
+    setSelectedDate(updateTimeToTheStartOfTheDay(new Date()))
+    onChange(updateTimeToTheStartOfTheDay(new Date()))
   }
 
   function increaseMonth() {

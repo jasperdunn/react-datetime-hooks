@@ -345,6 +345,7 @@ export function useCalendar({
     nudgeYear,
     selectedDate,
     setFirstDayOfTheWeek: (day: string) => setFirstDayOfTheWeek(day),
-    setSelectedDate: (date: Date) => setSelectedDate(updateTimeToTheStartOfTheDay(date))
+    setSelectedDate: (date: Date) => setSelectedDate(updateTimeToTheStartOfTheDay(date)),
+    updateTimeToTheStartOfTheDay
   }
 }

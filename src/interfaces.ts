@@ -19,5 +19,6 @@ export interface CalendarExports {
     selectedDate: Date,
     setSelectedDate: React.Dispatch<React.SetStateAction<Date>>,
     nudgeYear: (value: number) => void,
-    nudgeMonth: (value: number) => void
+    nudgeMonth: (value: number) => void,
+    updateTimeToTheStartOfTheDay: (date: Date) => Date
 }
