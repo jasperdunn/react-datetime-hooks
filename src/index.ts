@@ -1,5 +1,3 @@
-import constants from './constants'
-import { CalendarExports, CalendarOptions, Cell } from './interfaces'
-import { useCalendar } from './useCalendar'
-
-export { useCalendar, CalendarExports, CalendarOptions, Cell, constants }
+export { constants } from './constants';
+export type { CalendarExports, CalendarOptions, Cell } from './types';
+export { useCalendar } from './useCalendar';
