@@ -1,15 +1,20 @@
 {
   "files": {
-    "main.css": "/react-datetime-hooks/static/css/main.674f0dc1.chunk.css",
-    "main.js": "/react-datetime-hooks/static/js/main.bdb135e8.chunk.js",
-    "main.js.map": "/react-datetime-hooks/static/js/main.bdb135e8.chunk.js.map",
-    "runtime~main.js": "/react-datetime-hooks/static/js/runtime~main.1b729b15.js",
-    "runtime~main.js.map": "/react-datetime-hooks/static/js/runtime~main.1b729b15.js.map",
-    "static/js/2.69aad477.chunk.js": "/react-datetime-hooks/static/js/2.69aad477.chunk.js",
-    "static/js/2.69aad477.chunk.js.map": "/react-datetime-hooks/static/js/2.69aad477.chunk.js.map",
+    "main.css": "/react-datetime-hooks/static/css/main.925b81e1.chunk.css",
+    "main.js": "/react-datetime-hooks/static/js/main.10942f51.chunk.js",
+    "main.js.map": "/react-datetime-hooks/static/js/main.10942f51.chunk.js.map",
+    "runtime-main.js": "/react-datetime-hooks/static/js/runtime-main.5b12b0fe.js",
+    "runtime-main.js.map": "/react-datetime-hooks/static/js/runtime-main.5b12b0fe.js.map",
+    "static/js/2.d0990025.chunk.js": "/react-datetime-hooks/static/js/2.d0990025.chunk.js",
+    "static/js/2.d0990025.chunk.js.map": "/react-datetime-hooks/static/js/2.d0990025.chunk.js.map",
     "index.html": "/react-datetime-hooks/index.html",
-    "precache-manifest.264f8a9eb54f9de9aa090fb4fdbc761d.js": "/react-datetime-hooks/precache-manifest.264f8a9eb54f9de9aa090fb4fdbc761d.js",
-    "service-worker.js": "/react-datetime-hooks/service-worker.js",
-    "static/css/main.674f0dc1.chunk.css.map": "/react-datetime-hooks/static/css/main.674f0dc1.chunk.css.map"
-  }
+    "static/css/main.925b81e1.chunk.css.map": "/react-datetime-hooks/static/css/main.925b81e1.chunk.css.map",
+    "static/js/2.d0990025.chunk.js.LICENSE.txt": "/react-datetime-hooks/static/js/2.d0990025.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5b12b0fe.js",
+    "static/js/2.d0990025.chunk.js",
+    "static/css/main.925b81e1.chunk.css",
+    "static/js/main.10942f51.chunk.js"
+  ]
 }
