@@ -2,8 +2,6 @@
 
 ## Flexible agnostic functions to help you build datetime components in React
 
-[![MIT license](https://img.shields.io/npm/l/@jasperdunn/react-datetime-hooks.svg?color=%233DA639&style=flat-square)](http://opensource.org/licenses/MIT)
-
 [Example component built using @jasperdunn/react-datetime-hooks](https://jasperdunn.github.io/react-datetime-hooks/)
 
 ## Dev
